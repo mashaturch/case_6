@@ -1,14 +1,12 @@
 """Case-study #6 Парсинг web-страниц
 Разработчики:
-Турчинович М., Зубарева Т. , Костылев М.
+Турчинович М. (50%), Зубарева Т. (45%) , Костылев М. (30%)
 """
 
 import turtle as t
 import math
 
-import turtle as t
-import math
-
+# Choice colors
 red = 'красный'
 blue = 'синий'
 green = 'зеленый'
@@ -21,18 +19,12 @@ color_2 = ''
 list_color = [red, blue, green, yellow, orange, purple, pink]
 
 print ('Допустимые цвета заливки:\n {}\n {}\n {}\n {}\n {}\n {}'.format (red, blue, green, yellow, orange, purple, pink))
-
-a = 'Пожалуйста, введите количество шестиугольников, располагаемых в ряд: '
-a_again = 'Оно должно быть от 4 до 20. Пожалуйста, повторите попытку: '
-input_color = 'Пожалуйста, введите цвет:'
-error_color =
-def get_num_hexagons(a):
+def get_num_hexagons():
     '''Checking the nubmber of hexagones'''
-    num_hexagones = int (input (a))
-    if 4 <= num_hexagones <= 20:
-        return num_hexagones
-    else:
-        return get_num_hexagons(a_again)
+    num_hexagones = int (input ('Пожалуйста, введите количество шестиугольников, располагаемых в ряд: '))
+    while num_hexagones < 4 or num_hexagones > 20:
+        num_hexagones = int (input ('Оно должно быть от 4 до 20. Пожалуйста, повторите попытку: '))
+    return num_hexagones
 
 def get_color_choice():
     ''' Getting and checking the color ig hexagon'''
@@ -44,23 +36,54 @@ def get_color_choice():
         if color in list_color:
             if color_1 == '':
                 color_1 = color
-                print (color_1)
                 input_color = 'Пожалуйста, введите цвет: '
             elif color_2 == '':
                 color_2 = color
-
-
         else:
-            print ("'" + color + "'" + ' не является верным значением. Пожалуйста, повторите попытку: ', end='')
-    return color_1 + color_2
-get_color_choice()
+            input_color = "'" + color + "'" + ' не является верным значением. Пожалуйста, повторите попытку: '
+    colors_2 = colors (color_1, color_2)
+    return colors_2
 
+def colors (col_1, col_2):
+    """Color transfer"""
+    if col_1 == 'красный':
+        col_1 = 'red'
+    elif col_1 == 'синий':
+        col_1 = 'blue'
+    elif col_1 == 'зеленый':
+        col_1 = 'green'
+    elif col_1 == 'желтый':
+        col_1 = 'yellow'
+    elif col_1 == 'оранжевый':
+        col_1 = 'orange'
+    elif col_1 == 'фиолетовый':
+        col_1 = 'purple'
+    elif col_1 == 'розовый':
+        col_1 = 'pink'
+
+    if col_2 == 'красный':
+        col_2 = 'red'
+    elif col_2 == 'синий':
+        col_2 = 'blue'
+    elif col_2 == 'зеленый':
+        col_2 = 'green'
+    elif col_2 == 'желтый':
+        col_2 = 'yellow'
+    elif col_2 == 'оранжевый':
+        col_2 = 'orange'
+    elif col_2 == 'фиолетовый':
+        col_2 = 'purple'
+    elif col_2 == 'розовый':
+        col_2 = 'pink'
+
+    return col_1 + ' ' + col_2
 
 def draw_hexagon(x,y, side_len, color):
     '''Drawing the hexagon'''
+    t.up()
     t.goto (x, y)
-    t.color(color)
-    t.down ()
+    t.color('black', color)
+    t.down()
     t.begin_fill()
     t.right (30)
     for i in range (6):
@@ -68,29 +91,41 @@ def draw_hexagon(x,y, side_len, color):
         t.left (60)
     t.end_fill()
     t.left (30)
-    t.up()
 
 def draw_hexagons (color_1, color_2, count):
     """Drawing hexagons """
-    side_len = (500 / count) / math.sqrt(3)
+    side_len = math.sqrt((500 / (count)) ** 2 / 3)
     x = -250
     y = 250
+    line = 1
     for i in range (count):
         for j in range (count):
             draw_hexagon(x, y, side_len, color_1)
-            x += 500 / count
+            x = t.xcor() + math.sqrt(side_len ** 2 - (side_len / 2) ** 2) * 2
             color_1, color_2 = color_2, color_1
-            if count % 2 != 0:
-                if i == 0 or i == 1 or i == 4 or i == 5 or i == 8 or i == 9 or i == 12 or i == 13 or i == 16 or i == 17:
-                    color_1, color_2 = color_2, color_1
-            else:
-                if i == 2 or i == 3 or i == 6 or i == 7 or i == 10 or i == 11 or i == 14 or i == 15 or i == 18 or i == 19:
-                    color_1, color_2 = color_2, color_1
+        if line % 2 == 0:
+            lines = 1
+        else:
+            color_1, color_2 = color_2, color_1
+            lines = 3
+        if count % 2 == 0:
+            color_1, color_2 = color_2, color_1
+        y = t.ycor() - 3 * side_len / 2
+        x = t.xcor() - (count * 2 - lines) * math.sqrt(side_len**2 - (side_len / 2)**2)
+        t.up()
+        t.goto(x, y)
+        line += 1
 
+def main():
+    """The main part of the program"""
+    col = get_color_choice()
+    col_1, col_2 = col.split()
+    count = get_num_hexagons ()
+    t.screensize(500, 500)
+    t.speed(100)
+    draw_hexagons(col_1, col_2, count)
+    t.mainloop()
+    t.hideturtle()
 
-
-
-
-
-get_num_hexagons(a)
-get_color_choice()
+# start program
+main()
