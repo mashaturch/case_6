@@ -1,3 +1,11 @@
+"""Case-study #6 Парсинг web-страниц
+Разработчики:
+Турчинович М., Зубарева Т. , Костылев М.
+"""
+
+import turtle as t
+import math
+
 import turtle as t
 import math
 
@@ -40,17 +48,34 @@ def get_color_choice():
 
 def draw_hexagon(x,y, side_len, color):
     '''Drawing the hexagon'''
-    goto (x, y)
-    fillcolor (color)
-    down ()
-    begin_fill()
-    right (30)
+    t.goto (x, y)
+    t.color(color)
+    t.down ()
+    t.begin_fill()
+    t.right (30)
     for i in range (6):
-        forward (side_len)
-        left (60)
-    end_fill()
-    left (30)
-    up()
+        t.forward (side_len)
+        t.left (60)
+    t.end_fill()
+    t.left (30)
+    t.up()
+
+def draw_hexagons (color_1, color_2, count):
+    """Drawing hexagons """
+    side_len = (500 / count) / math.sqrt(3)
+    x = -250
+    y = 250
+    for i in range (count):
+        for j in range (count):
+            draw_hexagon(x, y, side_len, color_1)
+            x += 500 / count
+            color_1, color_2 = color_2, color_1
+            if count % 2 != 0:
+                if i == 0 or i == 1 or i == 4 or i == 5 or i == 8 or i == 9 or i == 12 or i == 13 or i == 16 or i == 17:
+                    color_1, color_2 = color_2, color_1
+            else:
+                if i == 2 or i == 3 or i == 6 or i == 7 or i == 10 or i == 11 or i == 14 or i == 15 or i == 18 or i == 19:
+                    color_1, color_2 = color_2, color_1
 
 
 
