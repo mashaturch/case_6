@@ -48,7 +48,8 @@ def get_color_choice():
                 input_color = 'Пожалуйста, введите цвет: '
             elif color_2 == '':
                 color_2 = color
-                print (color_2)
+
+
         else:
             print ("'" + color + "'" + ' не является верным значением. Пожалуйста, повторите попытку: ', end='')
     return color_1 + color_2
