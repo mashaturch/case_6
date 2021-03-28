@@ -36,15 +36,24 @@ def get_num_hexagons(a):
 
 def get_color_choice():
     ''' Getting and checking the color ig hexagon'''
-    color = input (input_color)
-    if color in list_color:
-        if color_1 == '':
-           color_1 = color
-           get_color_choice()
-        elif color_2 == '':
-            color_2 = color
-    else:
-        input_color = "'" + color + "'" + ' не является верным значением. Пожалуйста, повторите попытку: '
+    color_1 = ''
+    color_2 = ''
+    input_color = 'Пожалуйста, введите цвет: '
+    while color_1 == '' or color_2 == '':
+        color = input(input_color)
+        if color in list_color:
+            if color_1 == '':
+                color_1 = color
+                print (color_1)
+                input_color = 'Пожалуйста, введите цвет: '
+            elif color_2 == '':
+                color_2 = color
+                print (color_2)
+        else:
+            print ("'" + color + "'" + ' не является верным значением. Пожалуйста, повторите попытку: ', end='')
+    return color_1 + color_2
+get_color_choice()
+
 
 def draw_hexagon(x,y, side_len, color):
     '''Drawing the hexagon'''
