@@ -93,13 +93,13 @@ def draw_hexagon(x,y, side_len, color):
     t.left (30)
 
 def draw_hexagons (color_1, color_2, count):
-    """Drawing hexagons """
+    '''Drawing hexagones'''
     side_len = math.sqrt((500 / (count)) ** 2 / 3)
     x = -250
     y = 250
     line = 1
     for i in range (count):
-        for j in range (count):
+        for i in range (count):
             draw_hexagon(x, y, side_len, color_1)
             x = t.xcor() + math.sqrt(side_len ** 2 - (side_len / 2) ** 2) * 2
             color_1, color_2 = color_2, color_1
@@ -111,10 +111,11 @@ def draw_hexagons (color_1, color_2, count):
         if count % 2 == 0:
             color_1, color_2 = color_2, color_1
         y = t.ycor() - 3 * side_len / 2
-        x = t.xcor() - (count * 2 - lines) * math.sqrt(side_len**2 - (side_len / 2)**2)
+        x = t.xcor() - (count * 2 - lines) * math.sqrt(side_len ** 2 - (side_len / 2) ** 2)
         t.up()
         t.goto(x, y)
         line += 1
+
 
 def main():
     """The main part of the program"""
